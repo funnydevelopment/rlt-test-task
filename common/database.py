@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 async def get_month_collection(dt_from: str, dt_upto: str) -> dict:
-    client = AsyncIOMotorClient("mongodb://localhost:27017")
+    client = AsyncIOMotorClient("mongodb://mongo:27017")
     db = client["mydatabase"]
     collection = db["sample_collection"]
 
@@ -41,7 +41,7 @@ async def get_month_collection(dt_from: str, dt_upto: str) -> dict:
 
 
 async def get_day_collection(dt_from: str, dt_upto: str) -> dict:
-    client = AsyncIOMotorClient("mongodb://localhost:27017")
+    client = AsyncIOMotorClient("mongodb://mongo:27017")
     db = client["mydatabase"]
     collection = db["sample_collection"]
 
@@ -88,7 +88,7 @@ async def get_day_collection(dt_from: str, dt_upto: str) -> dict:
 
 
 async def get_hour_collection(dt_from: str, dt_upto: str) -> dict:
-    client = AsyncIOMotorClient("mongodb://localhost:27017")
+    client = AsyncIOMotorClient("mongodb://mongo:27017")
     db = client["mydatabase"]
     collection = db["sample_collection"]
 
