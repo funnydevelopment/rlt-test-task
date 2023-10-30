@@ -11,14 +11,18 @@ RUN pip install --no-cache-dir -r /requirements.txt
 WORKDIR /app
 COPY . .
 
-# Устанавливаем MongoDB и восстанавливаем базу данных
-RUN apt-get update && apt-get install -y mongodb-tools
-WORKDIR /app
-RUN mongorestore --db mydatabase /app/sampleDB
+# Устанавливаем необходимые пакеты
+RUN apt-get update && apt-get install -y wget gnupg
 
-# Устанавливаем MongoDB-клиент с паролем
-RUN apt-get install -y mongodb-tools
-RUN echo "mongodb://username:password@mongodb:27017/mydatabase" > /app/mongodb_uri.txt
+# Устанавливаем ключ GPG MongoDB
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
 
+# Добавляем репозиторий MongoDB
+RUN echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+
+# Устанавливаем MongoDB Tools
+RUN apt-get update && apt-get install -y mongodb-database-tools
+
+# Остальной код Dockerfile оставляем без изменений
 # Команда для запуска вашего приложения
 CMD ["python", "bot.py"]
